@@ -1,0 +1,56 @@
+{% extends "account/base.html" %}
+
+{% load i18n %}
+
+{% block head_title %}{% trans "Signup" %}{% endblock %}
+
+
+{% block  head_form %}
+<h2 class="text-center">
+    <a  id="sign-in-btn" href="{% url 'account_login' %}">登录</a>
+    <b  style="color:#969696!important; ">·</b>
+    <a   class="active"  id="sign-up-btn"   href="{% url 'account_signup' %}">注册</a>
+</h2>
+{% endblock %}
+
+{% block  form %}
+      <form class="form-horizontal" id="signup_form" method="post" action="{% url 'account_signup' %}"">
+      {% csrf_token %}
+      <div class="form-group">
+       <div class="help-block" style="color: #ea644a;">
+     {%   for  value in form.errors.values %}
+     {{ value }}
+     {% endfor %}
+       </div>
+      <div class="input-group">
+      <span class="input-group-addon"><i class="icon icon-envelope"></i></span>
+      <input type="email" name="email"  class="form-control input-lg" placeholder="E-mail地址" required="" id="id_email">
+      </div>
+  </div>
+  <div class="form-group">
+      <div class="input-group">
+      <span class="input-group-addon"><i class="icon icon-user"></i></span>
+      <input type="text" name="username" class="form-control input-lg" placeholder="用户名" autofocus="autofocus" minlength="1" maxlength="150" required="" id="id_username">
+
+      </div>
+  </div>
+  <div class="form-group">
+    <div class="input-group">
+      <span class="input-group-addon"><i class="icon icon-lock"></i></span>
+      <input type="password"  class="form-control  input-lg" name="password1" placeholder="密码" required="" id="id_password1">
+    </div>
+  </div>
+      <div class="form-group">
+    <div class="input-group">
+      <span class="input-group-addon"><i class="icon icon-lock"></i></span>
+      <input type="password"  class="form-control  input-lg" name="password2" placeholder="密码(重复)" required="" id="id_password2">
+
+    </div>
+  </div>
+
+          {% if redirect_field_value %}
+  <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
+  {% endif %}
+      <button type="submit" class="btn btn-success btn-lg btn-block">注册</button>
+</form>
+{% endblock %}

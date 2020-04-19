@@ -1,0 +1,8 @@
+{% load account %}{% user_display user as user_display %}{% load i18n %}{% autoescape off %}亲爱的用户，你好!
+
+您收到此电子邮件是因为用户【{{ user_display }}】已将您的电子邮件地址作为电子邮件地址来连接其帐户。
+
+如果确定这是正确的，请点击链接绑定账号 {{ activate_url }}
+{% endautoescape %}
+感谢您使用本站
+【HUBU生信】

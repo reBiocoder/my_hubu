@@ -1,0 +1,472 @@
+nav {background-color: #FFFFFF!important;}
+#navbar-top {padding: 10px 10px 10px 10px;}
+nav ul li a {color: #8590A6!important;font-size: 16px;}
+nav div a:hover{color: #0a67fb!important;}
+form div input {font-size: 16px!important;}
+a>i {font-size: 20px!important;}
+#right-container {background-color: #FFFFFF!important;}
+/*对一行进行分隔*/
+a.panel-item {float: left !important;margin-left: 55px!important;}
+a.panel-item p{font-size: 16px;margin-left: -10px}
+.panel a:link {color: black;}
+/*.panel a:hover {color: #0084FF!important;}*/
+.panel a i{font-size: 30px!important;}
+.panel i {color: #8590A6;}
+#profile-right-panel .panel{ font-size: 16px;}
+#profile-right-panel .panel .panel-heading{
+    background-color: #fff!important;
+    color: #646464;
+}
+#sort-panel .panel{ font-size: 16px;}
+#sort-panel .panel .panel-heading{
+    background-color: #fff!important;
+    color: #646464;
+}
+.profile-achievements{
+    color: #646464;
+    margin-bottom: 12px;
+}
+.profile-achievements i{
+    font-size: 18px;margin-right: 15px;
+}
+.sort-panel-body{
+    line-height: 40px;
+}
+.list-group a i{font-size: 16px!important;}
+
+a:focus{text-decoration: none!important;}
+a:link{text-decoration:none!important;} /*指正常的未被访问过的链接*/
+
+a:visited{text-decoration:none!important;} /*指已经访问过的链接*/
+
+a:hover{text-decoration:none!important;} /*指鼠标在链接*/}
+
+a:active{text-decoration:none!important;} /*指正在点的链接*/
+
+#arcticle-code{
+    overflow: auto!important;
+}
+
+/*----------------页脚底部--------------------*/
+html {
+  position: relative!important;
+  min-height: 100% !important;
+}
+body {
+  /* Margin bottom by footer height */
+  margin-bottom: 100px!important;
+    background-color: #F6F6F6!important;
+  padding-top: 70px!important;/*对固定头部进行内补，导致出现更多*/
+}
+
+
+
+.footer {
+  position: absolute!important;
+  bottom: 0!important;
+  width: 100% !important;
+  /* Set the fixed height of the footer here */
+  height: 100px!important;
+  background-color: black!important;
+}
+
+/*-----------------------------------------------------------------*/
+
+#rightContent{
+  position: fixed!important;
+right: 20px;
+  bottom: 60px;
+}
+/*评论的css*/
+.comments_length{
+  font-size: 18px; padding-top: 1em;color: #333;
+}
+
+/*登陆css*/
+/*.panel-heading h2{*/
+  /*margin-left: 130px;*/
+/*}*/
+
+h2 .active{
+  padding-bottom: 3px;
+  color: #0a67fb!important;
+  border-bottom: 2px solid #0a67fb;
+}
+
+h2  a {
+  color: #969696!important;
+  font-weight: 700;
+}
+.panel-footer-form  p{
+   text-align: center;
+  color: #b5b5b5;
+}
+
+.panel-footer-form{
+  background-color: #fff!important;
+}
+
+#c{
+  float:left;margin-left: 40px;
+}
+#c  .iconCenter{
+  float:left; height:50px;width:50px;
+}
+
+
+/*文章详情css*/
+
+#article{
+    line-height: 1.7!important;
+    color: #1A1A1A!important;
+        font-size: 17px!important;
+}
+#article p {
+    display: block!important;
+    margin-block-start: 1em!important;
+    margin-block-end: 1em!important;
+    margin-inline-start: 0px!important;
+    margin-inline-end: 0px!important;
+}
+
+#notificationContent li{
+    display: block!important;
+    padding: 3px 20px!important;
+    clear: both!important;
+    font-weight: 400!important;
+    line-height: 1.53846154!important;
+    color: #353535!important;
+    font-size: 16px;
+}
+
+#notificationContent {
+    right: 100!important;
+    left: 100!important;
+    min-width: 280px!important;
+    left: -120px!important;
+}
+#notificationContent a{
+    color: #175199!important;
+}
+
+#profile-info  h1{
+  margin-left: 180px;
+}
+#profile-info  h1  span{
+    font-size: 18px;margin-left: 12px;color: #1A1A1A;font-weight: normal;
+}
+
+#profile-info ul{
+    margin-left: 180px;
+}
+
+.profileHeadItem{
+    line-height: 2.5;
+    margin-right: 35px;
+    font-weight: 600;
+    font-size: 16px;
+}
+
+#editProfileHeadList li{
+    border-bottom: 1px solid #EBEBEB;
+    padding: 30px 0;
+}
+#edit-profile-info h1 a{
+    color: #808080;
+    font-size: 14px;
+}
+#edit-profile-info{
+   margin-left: 180px;
+}
+
+#id_comment{
+        border: 1px solid #dcdcdc;
+        background-color: hsla(0,0%,71%,.1);
+    border-radius: 4px;
+    outline: none!important;
+}
+textarea{
+    resize:none!important;
+}
+.profileHeadValue{
+    font-size: 16px;
+    line-height: 1.8;
+    margin-left: 100px;
+}
+
+/**/
+
+.profileHeadButton{
+    background-color: transparent;
+    border: none;
+    color: #8590A6;
+    font-size: 15px;
+    padding: 0px;
+}
+
+.profileHeadButtonTop{
+    background-color: transparent;
+    border: none;
+    color: #8590A6;
+    font-size: 15px;
+    padding: 0px;
+}
+.postOrderButton{
+     background-color: transparent;
+    border: none;
+    color: #8590A6;
+    font-size: 15px;
+    padding: 0px;
+    /*margin-left: 10px;*/
+}
+#icon-post{
+    margin-left: 10px;color: #8590A6;
+}
+
+.Footer-dot::after {
+    margin: 0 5px;
+    content: '\B7';
+}
+.profileInfoFullName  button{
+background-color: transparent!important;
+    border: none;
+    font-size: 16px;
+    color:#175199;
+    margin-left: 20px;
+    opacity: 0;
+}
+.profileGender  button {
+    background-color: transparent !important;
+    border: none;
+    font-size: 16px;
+    color: #175199;
+    margin-left: 20px;
+    opacity: 0;
+}
+
+.profileOneWord  button{
+        background-color: transparent !important;
+    border: none;
+    font-size: 16px;
+    color: #175199;
+    margin-left: 20px;
+    opacity: 0;
+}
+
+.profileLocation  button{
+    background-color: transparent !important;
+    border: none;
+    font-size: 16px;
+    color: #175199;
+    margin-left: 20px;
+    opacity: 0;
+}
+.profileTrade  button{
+      background-color: transparent !important;
+    border: none;
+    font-size: 16px;
+    color: #175199;
+    margin-left: 20px;
+    opacity: 0;
+}
+
+.profileJob  button{
+          background-color: transparent !important;
+    border: none;
+    font-size: 16px;
+    color: #175199;
+    margin-left: 20px;
+    opacity: 0;
+}
+
+.profileStudy button{
+    background-color: transparent !important;
+    border: none;
+    font-size: 16px;
+    color: #175199;
+    margin-left: 20px;
+    opacity: 0;
+
+}
+.profileIntroduction  button{
+    background-color: transparent !important;
+    border: none;
+    font-size: 16px;
+    color: #175199;
+    margin-left: 20px;
+    opacity: 0;
+}
+
+#profile-info{
+    line-height: 60px;
+}
+
+#edit-profile-info input{
+    /*display: block;*/
+    height: 32px;
+    padding: 5px 8px;
+    width: 500px;
+    /*font-size: 13px;*/
+    line-height: 1.53846154;
+    color: #222;
+    vertical-align: middle;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075);
+    box-shadow: inset 0 1px 1px rgba(0,0,0,.075);
+    -webkit-transition: border-color ease-in-out .15s,-webkit-box-shadow ease-in-out .15s;
+    -o-transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
+    transition: border-color ease-in-out .15s,-webkit-box-shadow ease-in-out .15s;
+    transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
+    transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s,-webkit-box-shadow ease-in-out .15s;
+}
+
+#profileGender input{
+    height: 15px;width: 100px;margin-top: -5px;
+}
+#postAuthor .media-body{
+    font-size: 15px;line-height: 1.5;padding-left: 50px;
+}
+#postAuthor .media-body p span{
+    margin-left: 5px;
+    color: #8590A6;
+}
+
+#left-inprofile{
+    margin-left: -5px!important;
+    color: #8590A6!important;
+}
+
+
+.button-mysettings{
+    background: #fff!important;
+    border-color: transparent!important;
+    color: #8590A6!important;
+    font-size: 15px!important;
+    /*line-height: 32px!important;*/
+    border: none!important;
+}
+.popover-area{
+    border: 0px solid rgba(0,0,0,.2)!important;
+}
+/*去掉按钮边框*/
+*{outline:0!important;}
+
+#agree-button{
+    margin-top: 5px;margin-left: 60px;background: rgba(0, 132, 255, 0.1);border-color: transparent;color: #0084FF;font-size: 15px;line-height: 32px;
+}
+
+#share-button{
+    margin-top: 5px;background: #fff;border-color: transparent;color: #8590A6;font-size: 15px;line-height: 32px;
+}
+
+#setting-button{
+  margin-top: 5px;background: #fff;border-color: transparent;color: #8590A6;font-size: 15px;line-height: 32px;border: none;
+}
+
+
+.popover-notifications{
+    display: inline-block;
+    padding: 5px 12px;
+    margin-bottom: 0;
+    font-size: 13px;
+    font-weight: 400;
+    line-height: 1.53846154;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: middle;
+    cursor: pointer;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    border: 1px solid transparent;
+    border-radius: 4px;
+    -webkit-transition: all .4s cubic-bezier(.175,.885,.32,1);
+    -o-transition: all .4s cubic-bezier(.175,.885,.32,1);
+    transition: all .4s cubic-bezier(.175,.885,.32,1);
+}
+#label-notification {
+    background-color: red;
+    margin-top: -20px;
+    margin-left: -7px;
+}
+
+.agree{
+    color: #fff!important;background: #0084FF!important;
+}
+.notAgree{
+    color: #0084FF!important;background: rgba(0, 132, 255, 0.1);!important;
+}
+
+.notAgreeTwoButton{
+line-height: 1.5!important;border-radius: 40px!important;background-color: transparent!important;border: 1px solid #EA6F5A!important;color: #EA6F5A!important;
+}
+.notAgreeTwoFont{
+    margin-left: 8px;font-size: 18px;border-right-width: 1px;padding-right: 10px;border-right-style: solid;border-right-color: #EA6F5A;
+}
+
+.agreeTwoButton{
+    line-height: 1.5!important;border-radius: 40px!important;background-color: #EA6F5A!important;border: 1px solid #EA6F5A!important;
+}
+.agreeTwoFont{
+    margin-left: 8px;font-size: 18px;border-right-width: 1px;padding-right: 10px;border-right-style: solid;border-right-color: white;color: white;text-shadow: 0 0px 0 #fff;
+
+}
+
+
+.load-more{
+    padding: 10px 150px!important;background-color: #a5a5a5!important;color: #fff;
+}
+
+.color-index{
+    color: black;
+    background-color:#b3d4fc;!important;
+    background:1;
+    margin-left: 10px;
+    margin-right: 10px;
+    padding: 5px 5px;
+}
+
+.spanFollow{
+    padding: 5px 5px;
+}
+
+.sort{
+    font-size: 14px; font-weight: normal; line-height: 40px;
+}
+
+.sortClick{
+    color: #999!important;
+}
+
+.sortHead{
+    background-color: hsla(100, 0%, 1%, 0.1)!important;
+}
+
+
+#Search li{
+    width: 258px!important;
+        color: #000;
+    font: 14px arial;
+    line-height: 22px;
+    padding: 0 8px;
+    position: relative;
+    cursor: default;
+}
+#Search a{
+    padding-right: 20px!important;
+}
+#Search a:link{
+    background-color: #fff!important;
+}
+#Search a:hover{
+    background-color: #f0f0f0!important;
+}
+#Search a:active{
+    background-color: #FFF!important;
+}
+#aboutSearch  a:hover{
+    color: #0a67fb;;
+}

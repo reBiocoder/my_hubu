@@ -1,0 +1,85 @@
+{% load threadedcomments_tags %}
+{% get_comment_count  for  getPost as num %}
+
+        {% ifequal num  0 %}
+            <div  class="comments">
+            <header>
+            <h3>评论</h3>
+            </header>
+            <div  class="comments-list">
+                <p  style="font-size: 16px;color:#ccc;margin-top: 20px;" class="text-center">暂无评论</p>
+            </div>
+            </div>
+        {% else %}
+<div  class="comments">
+    <header>
+    <h3 style="font-size: 20px;">{{ num }}条评论</h3>
+        {% endifequal %}
+  </header>
+{% for comment in  comment_list %}
+{% if   not  comment.parent  %}
+<div class="comments-list">
+    <div  class="comment" style="font-size: 15px;">
+        <a href="{% url 'users:lookProfile'  id=comment.user.id %}" class="avatar" style="margin-top: 0px;" >
+    <img src="{{ comment.user.avatar.url }}" class="img-responsive img-circle">
+
+        </a>
+        <div class="content">
+    <div class="pull-right text-muted">{{ comment.submit_date }}</div>
+    <div><a href="{% url 'users:lookProfile'  id=comment.user.id %}"><strong>{{ comment.name }}</strong></a></div>
+    <div class="text">{{ comment.comment|linebreaks }}</div>
+    <div class="actions">
+        {% if request.user.is_authenticated %}
+            {% ifequal request.user comment.user  %}
+                <a  href="#c{{ comment.id }}" class="comment_reply_link" data-comment-id="{{ comment.id }}" >回复</a>
+            <a  href="#c{{ comment.id }}" class="comment_delete_link"  data-comment-id="{{ comment.id }}"  >删除</a>
+
+            {% else %}
+      <a  href="#c{{ comment.id }}" class="comment_reply_link"    data-comment-id="{{ comment.id }}" >回复</a>
+        {% endifequal %}
+            {% else %}
+      <a  href="{% url 'account_login' %}"  >回复</a>
+        {% endif %}
+
+    </div>
+  </div>
+  {% for  childComment  in  comment_list  %}
+          {% ifequal  forloop.counter  forloop.parentloop.counter %}
+          {% else %}
+          {% ifequal  comment.id   childComment.root_id %}
+        <div class="comments-list">
+        <div class="comment">
+      <a href="{% url 'users:lookProfile'  id=childComment.user.id %}" class="avatar">
+        <img src="{{ childComment.user.avatar.url }}" class="img-responsive img-circle" style="margin-top: -5px!important;">
+
+
+      </a>
+      <div class="content">
+        <div class="pull-right text-muted">{{ childComment.submit_date }}</div>
+        <div><a href="{% url 'users:lookProfile'  id=childComment.user.id %}"><strong>{{ childComment.name }}</strong></a> <span class="text-muted">回复</span> <a href="{% url 'users:lookProfile'  id=childComment.parent.user.id %}">{{ childComment.parent.name }}</a></div>
+        <div class="text">{{ childComment.comment|linebreaks }}</div>
+        <div class="actions">
+            {% if request.user.is_authenticated %}
+                {% ifequal request.user childComment.user  %}
+                <a  href="#c{{ childComment.id }}" class="comment_reply_link" data-comment-id="{{ childComment.id }}" >回复</a>
+            <a  href="#c{{ childComment.id }}" class="comment_delete_link"    data-comment-id="{{ childComment.id }}"  >删除</a>
+         {% else %}
+          <a  href="#c{{ childComment.id }}" class="comment_reply_link"   data-comment-id="{{ childComment.id }}" >回复</a>
+            {% endifequal %}
+                {% else %}
+            <a  href="{% url 'account_login' %}"  >回复</a>
+            {% endif %}
+        </div>
+      </div>
+    </div>
+        </div>
+
+ {% endifequal %}
+          {% endifequal %}
+    {% endfor %}
+    </div>
+</div>
+    {% endif %}
+
+{% endfor %}
+</div>

@@ -1,0 +1,188 @@
+{% load  static %}
+{% load  newhubu %}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+<meta name="baidu_union_verify" content="5b833bfc68a19d655dfcfd4ee43a450a">
+    <!--实现响应式-->
+   <meta name="description" content="{% block description %}生物信息学，生物信息学论坛，生物信息学网站，专注于生物信息学，bioinformatics{% endblock %}--生物信息学论坛社区">
+<meta name="keywords" content="{% block keywords %}生物信息学社区,生物信息学论坛{% endblock %}">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>{% block  head_title %}HUBU生信--专注于生物信息学的论坛社区{% endblock %}</title>
+    {% block  extra_head %}{% endblock %}
+    <!--css-->
+   <link href="{% static  'myhubu.ico' %}" rel="shortcut icon" />
+    <link href="{% static 'css/main.css' %}" rel="stylesheet">
+    <link href="{% static  'css/zui.min.css' %}" rel="stylesheet">
+    {% block CssOrJs %}  {% endblock %}
+<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<script data-ad-client="ca-pub-5072850497249913" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+
+<script async custom-element="amp-auto-ads"
+        src="https://cdn.ampproject.org/v0/amp-auto-ads-0.1.js">
+</script>
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?5520f4ecf6387f19098871434d3a478d";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+</head>
+<body>
+<!----------------------------导航开始--------------------------------------->
+<div class="container-fluid">
+    <div class="row">
+    <nav class="navbar  navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container" id="navbar-top">
+    <!-- 导航头部 -->
+    <div class="navbar-header">
+      <!-- 移动设备上的导航切换按钮 -->
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse-1">
+        <span class="sr-only">切换导航</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <!-- 品牌名称或logo -->
+      <a class="navbar-brand" href="{% url  'topic:index' %}" style="color: #0a67fb;">HUBU生信</a>
+    </div>
+    <!-- 导航项目 -->
+    <div class="collapse navbar-collapse navbar-collapse-1">
+      <!-- 一般导航项目 -->
+      <ul class="nav navbar-nav">
+        <li><a href="{% url  'topic:index' %}" style="color: #0a67fb">首页</a></li>
+{#        <li><a href="your/nice/url">生信就业</a></li>#}
+           <li><a href="{% url  'topic:Sort' %}">话题</a></li>
+<li><a href="https://bio.biocoder.cn/">生信教程</a></li>
+      </ul>
+        <!--表单-->
+        <form id="Search" action="{% url 'topic:searchContent' %}" method="get" class="navbar-form navbar-left" role="search" >
+        <div class="form-group">
+            <input type="text" name="q" class="form-control" placeholder="搜索你感兴趣的内容..." required/>
+        </div>
+        <button type="submit" class="btn  btn-primary"><i class="icon  icon-search"></i></button>
+        </form>
+        <!--表单结束-->
+        <!--居右开始-->
+        {% block  formsRight %}
+            {% if request.user.is_authenticated %}
+                <input  type="hidden" name="{%  notifications request as num %}">
+
+        <ul class="nav navbar-nav navbar-right">
+             <!--------------消息通知-------------------------------------------->
+                   <li class="dropdown">
+  <a id="notification" data-toggle="popover"><i class="icon icon-bell-alt"  style="color: #1970fc"></i>
+      {% ifequal num  0 %}
+      {% else %}
+      <span  id="label-notification"  class="label label-badge">{{ num }}</span>
+      {% endifequal %}
+  </a>
+                   </li>
+            <!----------------------------------------------------------->
+
+
+            <!--li><a href="your/nice/url"><i class="icon icon-comments" style="color: #1970fc"></i></a></li-->
+        <li class="dropdown">
+          <a href="" class="dropdown-toggle" data-toggle="dropdown"><i class="icon icon-user" style="color: #1970fc"></i><b class="caret"></b></a>
+          <ul class="dropdown-menu" role="menu">
+            <li><a href="{% url  'topic:new_profile' %}"><i class="icon icon-home"></i> 我的主页</a></li>
+
+{#              <li><a href="your/nice/url"><i class="icon icon-book"></i> 创作者中心</a></li>#}
+              <li><a href="{% url  'account_change_password' %}"><i class="icon icon-cog"></i> 设置</a></li>
+            <li class="divider"></li>
+            <li><a href="{% url 'account_logout' %}"><i class="icon icon-off"></i> 退出</a></li>
+          </ul>
+        </li>
+      </ul>
+            {% else %}
+   <ul class="nav navbar-nav navbar-right">
+       <li><a href="{% url 'account_login' %}">登录</a></li>
+        <li><a href="{% url 'account_signup' %}">注册</a></li>
+      </ul>
+            {% endif %}
+        {% endblock %}
+        <!--居右结束-->
+    </div><!-- END .navbar-collapse -->
+  </div>
+</nav>
+    </div>
+</div>
+<!-------------------------结束--------------------------------------->
+<amp-auto-ads type="adsense"
+              data-ad-client="ca-pub-5072850497249913">
+</amp-auto-ads>
+<!-------------------------中间内容自定义------------------------------------>
+{% block  mainContent  %}
+<!------------------mainContent----------------------------------->
+<div class="container"   id="main-container">
+<div class="row">
+<div class="col-md-8" id="right-container">
+    {% block  right-container %}
+    {% endblock %}
+</div>
+<div class="col-md-4" id="left-container">
+    {% block left-container %}
+    {% endblock %}
+</div>
+</div>
+</div>
+{% endblock %}
+<!----------------------------中间内容自定义结束--------------------------------------------->
+<!-------------------------------js代码-------------------->
+<!--返回顶部-->
+ <div id="dtop">
+    <a href="javascript:;">
+        <button type="button" class="btn btn-primary">
+  <span class="glyphicon glyphicon-arrow-up" aria-hidden="true"></span><i class="icon icon-long-arrow-up"></i>
+</button>
+    </a>
+    </div>
+<br>
+ <div  id="dBottom">
+    <a href="javascript:;">
+        <button type="button" class="btn btn-primary">
+  <span class="glyphicon glyphicon-arrow-up" aria-hidden="true"></span><i class="icon icon-long-arrow-down"></i>
+</button>
+    </a>
+    </div>
+
+<!-------->
+<!--script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?5520f4ecf6387f19098871434d3a478d";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script-->
+
+<script src="{% static  'js/jquery-1.11.0.min.js' %}"></script>
+<script  src="{% static  'js/zui.min.js' %}"></script>
+<script src="{% static  'js/myAppBase.js' %}"></script>
+<!-----------------脚注代码----------------------------->
+{% block  bottomJs %}
+     <script src="{% static  'js/main.js' %}"></script>
+{% endblock %}
+
+{% block  codehighlight %}
+
+{% endblock %}
+{% block  footer %}
+{#<footer class="footer">#}
+{#  <div class="container">#}
+{#    <p style="font-size: 16px;color: whitesmoke">#}
+{#        <span >HUBU生信</span>专注于生物信息学技术发展的社区<br>Copyright ©<a target="_blank" href="https://www.lovexu.xyz">我爱小徐子</a>    -基于<a target="_blank" href="https://www.djangoproject.com/">django</a>开发#}
+{#        </p>#}
+{#  </div>#}
+{#</footer>#}
+{% endblock %}
+<!----------------------------- 对话框HTML--------------------------------------- -->
+
+</body>
+</html>

@@ -1,0 +1,35 @@
+{% load socialaccount %}
+
+{% get_providers as socialaccount_providers %}
+
+{% for provider in socialaccount_providers %}
+{% if provider.id == "openid" %}
+{% for brand in provider.get_brands %}
+<li>
+  <a title="{{brand.name}}"
+     class="socialaccount_provider {{provider.id}} {{brand.id}}"
+     href="{% provider_login_url provider.id openid=brand.openid_url process=process %}"
+     >{{brand.name}}</a>
+</li>
+{% endfor %}
+{% endif %}
+
+    {% ifequal provider.name "Weibo" %}
+<a class="iconCenter"  title="{{provider.name}}" href="{% provider_login_url provider.id process=process scope=scope auth_params=auth_params %}"><i class="icon icon-weibo  icon-2x" style="color: #e05244;"></i></a>
+    {% endifequal %}
+    {% ifequal provider.name "GitHub" %}
+<a class="iconCenter"  title="{{provider.name}}" href="{% provider_login_url provider.id process=process scope=scope auth_params=auth_params %}"><i class="icon icon-github  icon-2x" style="color: black;"></i></a>
+    {% endifequal %}
+<!--li>
+  <a title="{{provider.name}}" class="socialaccount_provider {{provider.id}}"
+     href="{% provider_login_url provider.id process=process scope=scope auth_params=auth_params %}">{{provider.name}}</a>
+</li-->
+<!--a class="iconCenter"><i class="icon icon-qq  icon-2x" style="color: #00bb29;"></i></a>
+<a class="iconCenter"><i class="icon icon-wechat  icon-2x"  style="color: #498ad5;"></i></a>
+<a class="iconCenter"><i class="icon icon-github  icon-2x" style="color: black;"></i></a>
+<a class="iconCenter"  href="#"><i class="icon icon-weibo  icon-2x" style="color: #e05244;"></i></a>
+<a class="iconCenter"><i class="icon icon-qq  icon-2x" style="color: #00bb29;"></i></a>
+<a class="iconCenter"><i class="icon icon-wechat  icon-2x"  style="color: #498ad5;"></i></a>
+<a class="iconCenter"><i class="icon icon-github  icon-2x" style="color: black;"></i></a-->
+
+{% endfor %}

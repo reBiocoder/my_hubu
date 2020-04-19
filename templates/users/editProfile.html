@@ -1,0 +1,181 @@
+{% extends  'myAPPBase.html' %}
+{% load  staticfiles %}
+
+{% block  head_title %}
+修改{{ request.user.nick_name }}的个人资料|HUBU生信社区
+{% endblock %}
+{% block  CssOrJs %}
+<link href="{% static  'lib/uploader/zui.uploader.min.css' %}" rel="stylesheet">
+{% endblock %}
+{% block  mainContent %}
+    <div  class="container">
+    <div  class="col-xs-1">
+    </div>
+        <div  class="col-xs-12">
+<div  class="panel"  style="margin-bottom: 10px;">
+<div  class="panel-body">
+<div class="media">
+     <div class="pull-left">
+         <img id="avatar" src="{{ request.user.avatar.url }}"  width="160px"  height="160px">
+         <div class="picture">
+  <div id="uploaderExample" class="uploader file-drag-area uploader-rename" data-auto-upload="true" data-drop-placeholder="请拖拽头像到此处。">
+       <div class="uploader-message text-center">
+    <div class="content"></div>
+    <button type="button" class="close">×</button>
+  </div>
+    <div class="uploader-files file-list file-rename-by-click" data-drag-placeholder="请拖拽头像到此处"></div>
+      {% csrf_token %}
+    <button type="button" class="btn btn-primary uploader-btn-browse"><i style="color: #FFFFFF" class="icon icon-picture"></i> 选择头像</button>
+  </div>
+         </div>
+
+{#         %#################}
+         </div>
+     <div  class="media-body"  id="edit-profile-info">
+         <h1 class="profileInfoFullName"><strong>{{ name }}</strong>
+             <button   type="button" class="btn">
+                 <svg viewBox="0 0 12 12" class="Icon ModifyButton-icon Icon--modify" width="12" height="16" aria-hidden="true" style="height: 16px; width: 12px;"><title></title><g><path d="M.423 10.32L0 12l1.667-.474 1.55-.44-2.4-2.33-.394 1.564zM10.153.233c-.327-.318-.85-.31-1.17.018l-.793.817 2.49 2.414.792-.814c.318-.328.312-.852-.017-1.17l-1.3-1.263zM3.84 10.536L1.35 8.122l6.265-6.46 2.49 2.414-6.265 6.46z" fill-rule="evenodd"></path></g></svg>
+                 修改
+             </button>
+             <a  href="{% url  'topic:new_profile' %}" class="pull-right">返回个人主页<i style="font-size: 14px!important;" class="icon icon-chevron-right"></i></a>
+         </h1>
+         <form  id="profileInfoFullNameForm">
+         <span class="profileHeadItem">昵称（非用户名）</span>
+         <span class="profileHeadValue">
+                 <input type="text" name="profileInfoFullName">
+         </span>
+              <button  type="button" class="btn btn-primary">确定</button>
+              <button type="button" class="btn btn-gray">取消</button>
+         </form>
+         <!----------------------------------------------------------->
+         <ul class="list-unstyled" id="editProfileHeadList">
+             <!---------------------性别------------------------------>
+             <li class="profileGender">
+                 <span class="profileHeadItem">性别</span>
+                 <span class="profileHeadValue">{{ gender }}</span>
+                   <button   type="button" class="btn">
+                 <svg viewBox="0 0 12 12" class="Icon ModifyButton-icon Icon--modify" width="12" height="16" aria-hidden="true" style="height: 16px; width: 12px;"><title></title><g><path d="M.423 10.32L0 12l1.667-.474 1.55-.44-2.4-2.33-.394 1.564zM10.153.233c-.327-.318-.85-.31-1.17.018l-.793.817 2.49 2.414.792-.814c.318-.328.312-.852-.017-1.17l-1.3-1.263zM3.84 10.536L1.35 8.122l6.265-6.46 2.49 2.414-6.265 6.46z" fill-rule="evenodd"></path></g></svg>
+                 修改
+                   </button>
+             </li>
+         <form id="profileGender">
+             <span class="profileHeadItem">性别</span>
+             <span>
+                 <input type="radio" name="profileGender"  value="女"  />女
+                 <input type="radio" name="profileGender" value="男"/>男
+             </span>
+             <button  type="button" class="btn btn-primary btn-xs">确定</button>
+              <button type="button" class="btn btn-gray  btn-xs">取消</button>
+         </form>
+             <!----------------------性别结束-------------------------------->
+              <li class="profileOneWord">
+                 <span class="profileHeadItem">一句话介绍</span>
+                 <span class="profileHeadValue">{{ oneWord }}</span>
+                   <button   type="button" class="btn">
+                 <svg viewBox="0 0 12 12" class="Icon ModifyButton-icon Icon--modify" width="12" height="16" aria-hidden="true" style="height: 16px; width: 12px;"><title></title><g><path d="M.423 10.32L0 12l1.667-.474 1.55-.44-2.4-2.33-.394 1.564zM10.153.233c-.327-.318-.85-.31-1.17.018l-.793.817 2.49 2.414.792-.814c.318-.328.312-.852-.017-1.17l-1.3-1.263zM3.84 10.536L1.35 8.122l6.265-6.46 2.49 2.414-6.265 6.46z" fill-rule="evenodd"></path></g></svg>
+                 修改
+             </button>
+             </li>
+         <form id="profileOneWord">
+             <span class="profileHeadItem">一句话介绍</span>
+             <span><input type="text" name="profileOneWord"></span>
+              <button  type="button" class="btn btn-primary">确定</button>
+              <button type="button" class="btn btn-gray">取消</button>
+         </form>
+             <!--------------------介绍结束---------------------------------------->
+               <li class="profileLocation">
+                 <span class="profileHeadItem">居住地</span>
+                 <span class="profileHeadValue">{{ locations }}</span>
+                   <button   type="button" class="btn">
+                 <svg viewBox="0 0 12 12" class="Icon ModifyButton-icon Icon--modify" width="12" height="16" aria-hidden="true" style="height: 16px; width: 12px;"><title></title><g><path d="M.423 10.32L0 12l1.667-.474 1.55-.44-2.4-2.33-.394 1.564zM10.153.233c-.327-.318-.85-.31-1.17.018l-.793.817 2.49 2.414.792-.814c.318-.328.312-.852-.017-1.17l-1.3-1.263zM3.84 10.536L1.35 8.122l6.265-6.46 2.49 2.414-6.265 6.46z" fill-rule="evenodd"></path></g></svg>
+                 修改
+             </button>
+             </li>
+         <form id="profileLocation">
+             <span class="profileHeadItem">居住地</span>
+             <span><input type="text" name="profileLocation"></span>
+              <button  type="button" class="btn btn-primary">确定</button>
+              <button type="button" class="btn btn-gray">取消</button>
+         </form>
+
+             <!---------------------居住地结束------------------------------------->
+               <li class="profileTrade">
+                 <span class="profileHeadItem">所在行业</span>
+                 <span class="profileHeadValue">{{ trade }}</span>
+                   <button   type="button" class="btn">
+                 <svg viewBox="0 0 12 12" class="Icon ModifyButton-icon Icon--modify" width="12" height="16" aria-hidden="true" style="height: 16px; width: 12px;"><title></title><g><path d="M.423 10.32L0 12l1.667-.474 1.55-.44-2.4-2.33-.394 1.564zM10.153.233c-.327-.318-.85-.31-1.17.018l-.793.817 2.49 2.414.792-.814c.318-.328.312-.852-.017-1.17l-1.3-1.263zM3.84 10.536L1.35 8.122l6.265-6.46 2.49 2.414-6.265 6.46z" fill-rule="evenodd"></path></g></svg>
+                 修改
+             </button>
+             </li>
+         <form id="profileTrade">
+             <span class="profileHeadItem">所在行业</span>
+             <span><input type="text" name="profileTrade"></span>
+              <button  type="button" class="btn btn-primary">确定</button>
+              <button type="button" class="btn btn-gray">取消</button>
+         </form>
+             <!----------------------行业结束--------------------------------->
+               <li class="profileJob">
+                 <span class="profileHeadItem">职业经历</span>
+                 <span class="profileHeadValue">{{ jobs }}</span>
+                   <button   type="button" class="btn">
+                 <svg viewBox="0 0 12 12" class="Icon ModifyButton-icon Icon--modify" width="12" height="16" aria-hidden="true" style="height: 16px; width: 12px;"><title></title><g><path d="M.423 10.32L0 12l1.667-.474 1.55-.44-2.4-2.33-.394 1.564zM10.153.233c-.327-.318-.85-.31-1.17.018l-.793.817 2.49 2.414.792-.814c.318-.328.312-.852-.017-1.17l-1.3-1.263zM3.84 10.536L1.35 8.122l6.265-6.46 2.49 2.414-6.265 6.46z" fill-rule="evenodd"></path></g></svg>
+                 修改
+             </button>
+               </li>
+         <form id="profileJob">
+             <span class="profileHeadItem">职业经历</span>
+             <span><input type="text" name="profileJob"></span>
+              <button  type="button" class="btn btn-primary">确定</button>
+              <button type="button" class="btn btn-gray">取消</button>
+         </form>
+             <!------------------职业结束-------------------------------------->
+             <li class="profileStudy">
+                 <span class="profileHeadItem">教育经历</span>
+                 <span class="profileHeadValue">{{ school }}</span>
+                   <button   type="button" class="btn">
+                 <svg viewBox="0 0 12 12" class="Icon ModifyButton-icon Icon--modify" width="12" height="16" aria-hidden="true" style="height: 16px; width: 12px;"><title></title><g><path d="M.423 10.32L0 12l1.667-.474 1.55-.44-2.4-2.33-.394 1.564zM10.153.233c-.327-.318-.85-.31-1.17.018l-.793.817 2.49 2.414.792-.814c.318-.328.312-.852-.017-1.17l-1.3-1.263zM3.84 10.536L1.35 8.122l6.265-6.46 2.49 2.414-6.265 6.46z" fill-rule="evenodd"></path></g></svg>
+                 修改
+             </button>
+             </li>
+         <form id="profileStudy">
+             <span class="profileHeadItem">教育经历</span>
+             <span><input type="text" name="profileStudy"></span>
+              <button  type="button" class="btn btn-primary">确定</button>
+              <button type="button" class="btn btn-gray">取消</button>
+         </form>
+             <!-------------------教育结束---------------------------------->
+
+              <li class="profileIntroduction">
+                 <span class="profileHeadItem">个人简介</span>
+                 <span class="profileHeadValue">{{ introduction }}</span>
+                   <button   type="button" class="btn">
+                 <svg viewBox="0 0 12 12" class="Icon ModifyButton-icon Icon--modify" width="12" height="16" aria-hidden="true" style="height: 16px; width: 12px;"><title></title><g><path d="M.423 10.32L0 12l1.667-.474 1.55-.44-2.4-2.33-.394 1.564zM10.153.233c-.327-.318-.85-.31-1.17.018l-.793.817 2.49 2.414.792-.814c.318-.328.312-.852-.017-1.17l-1.3-1.263zM3.84 10.536L1.35 8.122l6.265-6.46 2.49 2.414-6.265 6.46z" fill-rule="evenodd"></path></g></svg>
+                 修改
+             </button>
+             </li>
+          <form id="profileIntroduction">
+             <span class="profileHeadItem">个人简介</span>
+             <span><input type="text" name="profileIntroduction"></span>
+              <button  type="button" class="btn btn-primary">确定</button>
+              <button type="button" class="btn btn-gray">取消</button>
+         </form>
+             <!-----------------------个人简介结束------------------------------------>
+             </ul>
+     </div>
+</div>
+</div><!-----panel-body-------------->
+</div><!---------panel--------------->
+        </div>
+            <!-------------------------------------------------------------->
+    <div  class="col-xs-1">
+    </div>
+    </div>
+{% endblock %}
+{% block  bottomJs %}
+    <script src="{% static  'js/main.js' %}"></script>
+    <script src="{% static  'lib/tabs/zui.tabs.js' %}"></script>
+    <script src="{% static  'lib/uploader/zui.uploader.min.js' %}"></script>
+{% endblock %}
+{% block  footer %}
+
+{% endblock %}

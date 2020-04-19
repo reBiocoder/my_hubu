@@ -1,0 +1,25 @@
+{% load  staticfiles %}
+{% load  newhubu %}
+{% for eachDraft  in  allDrafts %}
+      <div class="item">
+      <div class="item-heading">
+          <h3><a  href="{% url  'topic:drafts' type='edit' %}?draft_id={{ eachDraft.id }}" target="_blank">{{ eachDraft.title }}</a></h3>
+      </div>
+          <div class="item-content">
+              {% CutContent  eachDraft.content %}
+          </div>
+      <div class="item-footer" value="{{ eachDraft.id }}">
+          <a  href="javascript:void (0);" class="text-muted draft-delete">删除</a>
+
+          <span class="Footer-dot"></span>
+          <a href="{% url  'topic:drafts' type='edit' %}?draft_id={{ eachDraft.id }}" class="text-muted  draft-edit">编辑</a>
+
+          <span class="Footer-dot"></span>
+         保存时间{{ eachDraft.update_time }}
+          <span class="Footer-dot"></span>
+           共 {{ eachDraft.content|length }} 字
+          <span class="Footer-dot"></span>
+          文章
+      </div>
+    </div>
+      {% endfor %}

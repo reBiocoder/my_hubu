@@ -1,0 +1,48 @@
+{% extends "account/base.html" %}
+
+{% load i18n %}
+{% load account %}
+
+{% block head_title %}{% trans "Confirm E-mail Address" %}{% endblock %}
+
+
+{% block  left-accounts %}
+    <hr><hr><hr><hr>
+    <div  class="col-md-12">
+    <ul class="nav nav-primary nav-stacked">
+        <li class="nav-heading">设置</li>
+        <li>
+          <a href="{% url  'account_change_password' %}">修改密码</a>
+        </li>
+        <li class="active">
+          <a href="{% url  'topic:emailSettings' %}">邮箱设置</a>
+        </li>
+      </ul>
+    </div>
+{% endblock %}
+
+{% block  panel-heading %}
+<h2  class="text-center">{% trans "Confirm E-mail Address" %}</h2>
+{% endblock %}
+{% block  form %}
+
+{% if confirmation %}
+
+{% user_display confirmation.email_address.user as user_display %}
+
+<p>{% blocktrans with confirmation.email_address.email as email %}请确认<a  style="color: #0a67fb;" href="mailto:{{ email }}">{{ email }}</a> 是否是用户<span  style="color: #0a67fb;">{{ user_display }}</span>的e-mail地址。{% endblocktrans %}</p>
+
+<form method="post" action="{% url 'account_confirm_email' confirmation.key %}">
+{% csrf_token %}
+    <button class="btn  btn-primary" type="submit">{% trans 'Confirm' %}</button>
+</form>
+
+{% else %}
+
+{% url 'account_email' as email_url %}
+
+<p>{% blocktrans %}This e-mail confirmation link expired or is invalid. Please <a href="{{ email_url }}">issue a new e-mail confirmation request</a>.{% endblocktrans %}</p>
+
+{% endif %}
+{% endblock %}
+

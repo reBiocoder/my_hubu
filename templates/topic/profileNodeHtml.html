@@ -1,0 +1,149 @@
+{% load  newhubu %}
+{% load  threadedcomments_tags %}
+<!-------------------------------------------------------------------------->
+<ul  class="nav nav-tabs"  style="font-size: 16px;">
+    <li  class="active"><a data-tab href="#post">文章</a></li>
+{#    <li><a data-tab href="#question">提问</a></li>#}
+{#    <li><a data-tab href="#answer">回答</a></li>#}
+    <li><a data-tab href="#interestingPerson">关注了</a></li>
+    <li><a data-tab href="#youAreInterestingPerson">关注者</a></li>
+    <li><a data-tab href="#star">点赞的文章</a></li>
+</ul>
+<div class="tab-content">
+<div class="tab-pane active" id="post">
+<!------------文章-------------------------->
+    <div class="list list-condensed">
+  <header>
+      <h3><span><i class="icon icon-file-text-o" style="font-size: 18px;"></i> 我的文章 </span><span class="pull-right"><a href="{% url  'topic:writePost' type='create' %}"><span><i class="icon icon-edit" style="font-size: 16px!important;margin-right: 1px!important;" ></i></span><span>写文章</span></a></span>
+</h3>
+        </header>
+  <div class="items items-hover">
+      {% for eachPost  in  allPost %}
+          {% get_comment_count  for eachPost as  num %}
+    <div class="item">
+      <div class="item-heading">
+        <div class="pull-right"><span class="text-muted">{{ eachPost.update_time }}</span> &nbsp; <a  class="text-muted"><i style="font-size: 14px!important;" class="icon-chat"></i> {{ num }}</a></div>
+        <h4><a href="{% url  'topic:postContent' postId=eachPost.id slug=eachPost.slug %}">{{ eachPost.title }}</a></h4>
+      </div>
+      <div class="item-content">
+        <div class="text">
+           {% CutContent  eachPost.content %}
+        </div>
+      </div>
+    </div>
+  {% endfor %}
+
+  </div>
+</div>
+    <!------------------------------------------->
+</div>
+{#    <div class="tab-pane" id="question">#}
+{#<p>我是标签2。</p>#}
+{#</div>#}
+{#    <div class="tab-pane" id="answer">#}
+{#<p>我是标签3。</p>#}
+{#</div>#}
+    <div class="tab-pane" id="interestingPerson">
+
+    <div class="list list-condensed">
+  <header>
+      <h3><span> 我的关注 </span><span class="pull-right" style="color: grey;">共{{ interestSender|length }}人</span></h3>
+        </header>
+  <div class="items items-hover">
+      {% for  eachIsInterested  in interestSender %}
+    <div class="item">
+      <div class="item-heading">
+        <div class="pull-right"><span class="text-muted">{{ eachIsInterested.receiver.oneWords }}</span></div>
+          <h4><a  href="{% url  'users:lookProfile'  id=eachIsInterested.receiver.id %}"><img class="img-circle" src="{{ eachIsInterested.receiver.avatar.url }}" width="30px" height="30px;"><span style="margin-left: 10px;">{{ eachIsInterested.receiver.nick_name }}</span></a></h4>
+      </div>
+    </div>
+      {% endfor %}
+  </div>
+</div>
+
+
+
+</div>
+    <div class="tab-pane" id="youAreInterestingPerson">
+
+<div class="list list-condensed">
+  <header>
+      <h3><span> 我的关注者 </span><span class="pull-right" style="color: grey;">共{{ interestReceiver|length }}人</span></h3>
+        </header>
+  <div class="items items-hover">
+      {% for  eachIsInterestedReceiver  in interestReceiver %}
+    <div class="item">
+      <div class="item-heading">
+        <div class="pull-right"><span class="text-muted">{{ eachIsInterestedReceiver.sender.oneWords }}</span></div>
+          <h4><a  href="{% url  'users:lookProfile'  id=eachIsInterestedReceiver.sender.id %}"><img class="img-circle" src="{{ eachIsInterestedReceiver.sender.avatar.url }}" width="30px" height="30px;"><span style="margin-left: 10px;">{{ eachIsInterestedReceiver.sender.nick_name }}</span></a></h4>
+      </div>
+    </div>
+      {% endfor %}
+  </div>
+</div>
+</div>
+    <div class="tab-pane" id="star">
+
+        <div class="list list-condensed">
+  <header>
+      <h3><span> 我点赞的文章 </span><span class="pull-right" style="color: grey;">共{{ agreePost|length }}个</span></h3>
+        </header>
+  <div class="items items-hover">
+      {% for  eachAgreePost  in agreePost %}
+    {% get_comment_count  for eachAgreePost.post as  num %}
+    <div class="item">
+      <div class="item-heading">
+        <div class="pull-right"><span class="text-muted">{{ eachAgreePost.post.update_time }}</span> &nbsp; <a  class="text-muted"><i style="font-size: 14px!important;" class="icon-chat"></i> {{ num }}</a></div>
+        <h4><a href="{% url  'topic:postContent' postId=eachAgreePost.post.id slug=eachAgreePost.post.slug %}">{{ eachAgreePost.post.title }}</a></h4>
+      </div>
+      <div class="item-content">
+        <div class="text">
+           {% CutContent  eachAgreePost.post.content %}
+        </div>
+      </div>
+    </div>
+      {% endfor %}
+  </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
+</div>
+            <!--------------------------------------->
+        </div><!---------------------右侧内容结束-------------------------------------------->
+            <div  class="col-xs-4"  id="profile-right-panel">
+<div  class="panel">
+    <div  class="panel-heading">
+        <strong>个人成就</strong>
+    </div>
+<div  class="panel-body">
+    {% ifequal request.user.agreeNumber 0 %}
+    {% else %}
+    <div  class="profile-achievements">
+    <div class="pull-left"><i class="icon  icon-thumbs-up"></i></div>获得 {{ request.user.agreeNumber }} 次赞同
+    </div>
+    {% endifequal %}
+{% ifequal interestReceiver|length 0 %}
+{% else %}
+        <div  class="profile-achievements">
+    <div class="pull-left"><i class="icon icon-bullhorn"></i></div>共有{{ interestReceiver|length }}人关注了你
+    </div>
+{% endifequal %}
+{% ifequal request.user.allLookNumber 0 %}
+{% else %}
+      <div  class="profile-achievements">
+    <div class="pull-left"><i class="icon icon-eye-open"></i></div>个人主页被浏览 {{ request.user.allLookNumber }} 次
+    </div>
+{% endifequal %}
+</div>
+</div>

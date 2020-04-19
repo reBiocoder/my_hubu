@@ -1,0 +1,128 @@
+{% extends  'myAPPBase.html' %}
+{% load  staticfiles %}
+{% load  newhubu %}
+{% load  threadedcomments_tags %}
+{% block  head_title %}
+    话题"{{ node.node }}"|HUBU生信社区
+{% endblock %}
+{% block  right-container %}
+<div class="list list-condensed">
+  <header class="sortHead">
+      <h3 class="text-center" style="padding-top: 20px;"><span><img src="{{ node.sort_img.url }}"  width="40px" height="40px"> {{ node.node }} </span><span  class="pull-right sort"><a href="javascript:;" id="sortHot" class="sortClick" style="margin-right: 3px;">热门排序</a>|<a  href="javascript:;" id="sortTime" style="margin-left: 3px;">时间排序</a></span>
+</h3>
+      <input  name="nodeTwo_id"  type="hidden"  value="{{ node.id }}">
+        </header>
+  <div class="items items-hover"  id="sortContent" >
+      {% for  eachPost  in allPost%}
+          {% get_comment_count for eachPost  as  num %}
+      <div class="item" style="font-size: 15px!important;">
+      <div class="item-heading">
+        <div style="font-size: 12px!important;" class="pull-right label label-success">{{ eachPost.node }}</div>
+        <h2><a style="color: #145ccd!important;" href="{% url  'topic:postContent' postId=eachPost.id slug=eachPost.slug %}" target='_blank'>{{ eachPost.title }}</a></h2>
+      </div>
+      <div class="item-content">
+          <a  style="color: grey;" href="{% url  'topic:postContent' postId=eachPost.id slug=eachPost.slug %}">
+         {% ifequal eachPost.pictureUrl  '无' %}
+             {% else %}
+              <div class="media pull-right card"  style="margin-left: 20px;"><img src="{{ eachPost.pictureUrl }}"  alt="{{ eachPost.title }}--HUBU生信社区www.biocoder.cn"></div>
+          {% endifequal %}
+              <div class="text"><a style="color: #1A1A1A;font-size: 14px;" href="{% url  'topic:postContent' postId=eachPost.id slug=eachPost.slug %}">{% CutContent  eachPost.content %}</a></div>
+          </a>
+      </div>
+
+      <div class="item-footer">
+          <a href="{% url  'users:lookProfile' id=eachPost.user.id %}" class="text-muted"><i style="font-size: 14px!important;" class="icon icon-user"></i>{{ eachPost.user.nick_name }}</a>
+          <div  class="pull-right">
+              <span><a  href="{% url  'topic:postContent' postId=eachPost.id slug=eachPost.slug %}" class="text-muted"><i style="font-size: 14px!important;" class="icon icon-eye-open"></i> {{ eachPost.read_nums }}</a> </span><span><a href="{% url  'topic:postContent' postId=eachPost.id slug=eachPost.slug %}#defaultComment" class="text-muted"><i style="font-size: 14px!important;" class="icon-chat"></i> {{ commentCount }}</a> </span><span style="font-size: 14px!important;" class="text-muted">{{ eachPost.update_time }}</span>
+
+          </div>
+          </div>
+    </div>
+      {% endfor %}
+
+<!--script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<ins class="adsbygoogle"
+     style="display:block"
+     data-ad-format="fluid"
+     data-ad-layout-key="-fm+w-k-hn+x7"
+     data-ad-client="ca-pub-5072850497249913"
+     data-ad-slot="7024844017"></ins>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script-->
+  </div>
+</div>
+{% endblock %}
+{% block  left-container %}
+    <div id="sort-panel">
+        <!------------板块信息开始--------------------->
+<div class="panel"  id="sortIntroduction">
+    <div class="panel-heading">
+        <strong>话题简介</strong>
+        <span  class="pull-right" style="font-size: 13px;color: darkgray">更新于{{ node.updated_time|timesince }}前</span>
+    </div>
+<div class="panel-body">
+    <div class="sort-panel-body"  style="font-size: 14px;line-height: 15px;">
+   {{ node.description }}
+    </div>
+</div>
+</div>
+
+<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<ins class="adsbygoogle"
+     style="display:block"
+     data-ad-format="fluid"
+     data-ad-layout-key="-i3+e-1e-2w+ap"
+     data-ad-client="ca-pub-5072850497249913"
+     data-ad-slot="1109679455"></ins>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+
+    <!-----板块相关信息------------>
+    <div class="panel" style="font-size: 15px!important;">
+    <div class="panel-heading">
+        <strong>所有话题</strong>
+        <span  class="pull-right" style="font-size: 13px;color:darkgray">共{{ allNode|length }}个</span>
+    </div>
+    <!------------所有分类开始--------------------->
+        {% for  eachNode  in allNode %}
+            {% ifequal  forloop.counter 1 %}
+<div class="panel-body" style="margin-bottom: 0px!important;padding-bottom: 0px!important;">
+    <div class="sort-panel-body">
+        <a  href="{% url  'topic:SortContent' node_id=eachNode.id %}">
+        <img src="{{ eachNode.sort_img.url }}"  width="40px" height="40px">
+        <span style="margin-left: 5px;color: #259!important;">{{ eachNode.node }}</span>
+            <span  class="pull-right" style="font-size: 13px;color: darkgray">更新于{{ eachNode.updated_time|timesince }}前</span>
+
+        </a>
+    </div>
+</div>
+            {% else %}
+            <div class="panel-body" style="padding-top: 0!important;margin-bottom: 2px!important;padding-bottom: 0px!important;">
+    <div class="sort-panel-body">
+        <a  href="{% url  'topic:SortContent' node_id=eachNode.id %}">
+        <img src="{{ eachNode.sort_img.url }}"  width="40px" height="40px">
+        <span style="margin-left: 5px;color: #259!important;">{{ eachNode.node }}</span>
+            <span  class="pull-right" style="font-size: 13px;color: darkgray">更新于{{ eachNode.updated_time|timesince }}前</span>
+
+        </a>
+    </div>
+</div>
+            {% endifequal %}
+        {% endfor %}
+    <!----------所有分类结束-------------->
+</div>
+                <!-------------个人信息--------------------->
+                <div class="container">
+    <p style="margin-top: 0px;color:#878B91;font-size: 14px;line-height: 2;">
+        HUBU生信专注于生物信息学技术发展的社区<br>
+        <a style="color:#878B91;" target="_blank" href="http://bio.hubu.edu.cn/">湖北大学生物信息学</a><span class="Footer-dot"></span>
+        <a style="color:#878B91;" target="_blank" href="http://www.12377.cn/">网上有害信息举报专区</a><br>
+        联系方式：anshiwang@yeah.net<br>
+        Copyright ©<a style="color:#878B91;" target="_blank" href="https://github.com/reBiocoder">我爱小徐子</a>    -基于<a style="color:#878B91;" target="_blank" href="https://www.djangoproject.com/">django</a>开发
+        </p>
+  </div>
+                <!----------------------------------------------------->
+            </div>
+{% endblock %}

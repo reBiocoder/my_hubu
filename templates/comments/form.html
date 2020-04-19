@@ -1,0 +1,46 @@
+{% load  staticfiles %}
+<div id="comment-info">
+</div>
+<div class="comments" id="form-comment">
+ <footer>
+     {% if request.user.is_authenticated %}
+         <div class="reply-form"  id="comment">
+      <a href="{% url  'users:lookProfile'  id=request.user.id %}" class="avatar"><img  style="margin-top: -10px;" class="img-responsive img-circle" src="{{ request.user.avatar.url }}"></a>
+        <form class="form"  id="entryCommentFrom">
+        {% csrf_token %}
+          <div class="form-group">
+           <textarea  name="comment" class="form-control new-comment-text"  rows="3" style="outline-style: none!important;" maxlength="3000" required="" placeholder="撰写评论..." id="id_comment"></textarea>
+          </div>
+          <div  id="sendRow"  class="row">
+            <div class="col-md-3">
+            </div>
+            <div class="col-md-5">
+            </div>
+              <div class="col-md-2">
+              <button type="button" id="commentCancel" style="font-size: 16px;" class="btn btn-block">取消</button></div>
+            <div class="col-md-2">
+                <button type="button"  id="commentSend" style="font-size: 16px;" class="btn btn-block btn-primary">发送</button>
+          </div>
+        </div>
+                          <p style="height:0;width:0;overflow:hidden;">
+        <label for="id_honeypot">If you enter anything in this field your comment will be treated as spam:</label> <input type="text" name="honeypot" id="id_honeypot">
+      </p>
+        {% for field in form %}
+    {% if field.is_hidden %}
+        {% ifequal field.name 'parent' %}
+        {% else %}
+      <div>{{ field }}</div>
+        {% endifequal %}
+            {% endif %}
+        {% endfor %}
+        <div><input type="hidden" name="parent" id="id_parent"></div>
+      </form>
+    </div>
+     {% else %}
+         <div class="reply-form"  style="background-color: hsla(0,0%,71%,.1);padding: 25px;border: 1px solid #dcdcdc;" id="comment">
+      <a  class="avatar"><img  style="margin-top: -10px;" class="img-responsive img-circle" src="{% static  'img/anonymous.png' %}"></a>
+       <a href="{% url 'account_login' %}" style="margin-left: 100px;margin-top: 1px;" class="btn btn-success  ">登录</a><span style="margin-left: 15px;">后发表评论</span>
+    </div>
+     {% endif %}
+  </footer>
+</div>

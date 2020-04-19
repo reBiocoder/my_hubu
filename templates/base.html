@@ -1,0 +1,141 @@
+{% extends   "myAPPBase.html" %}
+{% load  staticfiles %}
+{% load account socialaccount %}
+{% load i18n %}
+{% block  CssOrJs  %}
+    <style>
+    hr {
+    margin-top: 20px;
+    margin-bottom: 20px;
+    border: 0;
+}
+    </style>
+{% endblock %}
+{% block  mainContent %}
+    <div class="container">
+    <div  class="row">
+        <div  class="col-md-1"></div>
+        <div  class="col-md-3">
+            {% block  left-accounts %}
+                {% endblock %}
+        </div>
+        {% block right-center  %}
+        <div class="col-md-4">
+               <!--------------增加内部--------------->
+            <hr>
+            <hr><hr>
+            <!---------------内部结束--------------------->
+            <!----------提示信息----------------->
+            <div  class="row">
+            <ul class="list-group">
+            {% block  message %}
+                {% endblock %}
+                {% if messages %}
+                    {% for message in messages %}
+                <li class="list-group-item" style="background-color: #f1a325!important;"><i class="icon-warning-sign"></i>{{message}}</li>
+                {% endfor %}
+                {% endif %}
+            </ul>
+            </div>
+            <!---------------- ---------------------->
+            <div  class="row">
+    <div  class="panel">
+        <div  class="panel-heading">
+        {% block  panel-heading %}
+            {% if user.is_authenticated %}
+                {% block  verify_head_form %}
+                <h2 class="text-center">
+    <a class="active" href="{% url 'account_email' %}">更改邮箱</a>
+    <!--b  style="color:#969696!important; ">·</b>
+    <a id="js-sign-up-btn" class="inactive" href="{% url 'account_logout' %}">注销</a-->
+</h2>
+                {% endblock %}
+            {% else %}
+                {% block  head_form %}
+<h2 class="text-center">
+    <a class="active" id="sign-in-btn" href="{% url 'account_login' %}">登录</a>
+    <b  style="color:#969696!important; ">·</b>
+    <a   id="sign-up-btn"   href="{% url 'account_signup' %}">注册</a>
+</h2>
+                {% endblock %}
+                <!----a>
+                {% url 'account_login' %}
+                {% url 'account_signup' %}
+                </a-->
+            {% endif %}
+            {% endblock %}
+        </div>
+    <div  class="panel-body"   style="padding: 50px 50px 30px;">
+    <div id="formChange">
+    {% block  form %}
+        {% get_providers as socialaccount_providers %}
+      <form class="form-horizontal" method="POST" action="{% url 'account_login' %}">
+      {% csrf_token %}
+  <div class="form-group">
+      <div class="input-group">
+      <span class="input-group-addon"><i class="icon icon-user"></i></span>
+      <input type="text" class="form-control input-lg" name="login" placeholder="用户名或e-mail"autofocus="autofocus" required id="id_login" >
+      </div>
+  </div>
+  <div class="form-group">
+    <div class="input-group">
+      <span class="input-group-addon"><i class="icon icon-lock"></i></span>
+      <input type="password" class="form-control  input-lg" name="password" placeholder="密码" required="" id="id_password">
+    </div>
+  </div>
+          {% if redirect_field_value %}
+  <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
+  {% endif %}
+  <div class="form-group">
+      <div  class="row">
+          <div  class="col-sm-4">
+      <div  class="input-group">
+      <div class="checkbox">
+        <label  for="id_remember">
+          <input type="checkbox" name="remember" id="id_remember">记住我
+        </label>
+      </div>
+      </div>
+          </div>
+          <div  class="col-sm-4"></div>
+          <div class="col-sm-4">
+      <a  class="pull-right"  href="{% url 'account_reset_password' %}" style="margin-top: 5px;">{% trans "Forgot Password?" %}</a>
+          </div>
+      </div>
+  </div>
+      <button type="submit" class="btn btn-primary btn-lg btn-block">登录</button>
+</form>
+{% endblock %}
+    </div>
+        <hr>
+        <hr>
+        <div  class="panel-footer-form">
+            <p>——————社交账号登录——————</p>
+            <div id="c">
+                {% block  socialSignIn %}
+
+                    <p>没有添加任何第三方登录内容</p>
+{% endblock %}
+                    <a style="clear:both"></a><!--这个层很有用，必须要，否则可能不兼容。-->
+</div>
+        </div>
+    </div>
+    </div>
+        </div>
+        </div>
+        <div class="col-md-4">
+            {% block content %}
+    {% endblock %}
+    {% block extra_body %}
+    {% endblock %}
+        </div>
+            {% endblock %}
+    </div>
+    </div> <!-- /container -->
+
+{% endblock %}
+{% block bottomJs %}
+<script  src="{% static  'js/main.js' %}"></script>
+{% endblock %}
+{% block  footer %}
+{% endblock %}

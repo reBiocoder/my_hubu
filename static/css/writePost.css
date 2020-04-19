@@ -1,0 +1,9 @@
+#writePostTitle a:link {color: #ccc;}
+#writePostTitle a:hover {color: #0084FF!important;}
+#writePostTitle{
+    margin-top: 8px;font-size: 17px;
+    color: #ccc;
+}
+#writePostTitle a{
+        border: 1px solid currentColor;
+}

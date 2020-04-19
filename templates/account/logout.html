@@ -1,0 +1,33 @@
+{% extends "account/base.html" %}
+
+{% load i18n %}
+
+{% block head_title %}{% trans "Sign Out" %}{% endblock %}
+
+
+{% block  verify_head_form %}
+<h2 class="text-center">
+    <a id="js-sign-up-btn" class="active" href="{% url 'account_logout' %}">注销</a>
+</h2>
+{% endblock %}
+
+{% block  form %}
+     <div class="help-block" style="color: #ea644a;">
+     {%   for  value in form.errors.values %}
+     {{ value }}
+     {% endfor %}
+       </div>
+<h2>{% trans 'Are you sure you want to sign out?' %}</h2>
+<form method="post" action="{% url 'account_logout' %}">
+  {% csrf_token %}
+  {% if redirect_field_value %}
+  <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}"/>
+  {% endif %}
+  <button  class="btn  btn-warning " type="submit">{% trans 'Sign Out' %}</button>
+</form>
+{% endblock %}
+
+
+
+
+

@@ -1,0 +1,71 @@
+{% load  staticfiles %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <!--实现响应式-->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>写一写|HUBU生信社区</title>
+    <!--css-->
+
+    <link href="{% static  'css/zui.min.css' %}" rel="stylesheet">
+    {% block CssOrJs %} <link href="{% static  'css/writePost.css' %}" rel="stylesheet">  {% endblock %}
+
+</head>
+<body>
+<form class="form-horizontal" role="form"  method="post"  action="">
+    {% csrf_token %}
+    <!--------------------------整个文件表单------------------------------------------>
+<div class="input-group">
+        <div class="input-control">
+          <!--input  type="text" name="title"  style="width: 900px;" class="form-control input-lg" placeholder="输入文章标题..." required-->
+        {{ forms.title }}
+        </div>
+    <span>
+        <div  id="writePostTitle">
+            <p>文章自动保存至<a href="{% url  'topic:drafts' type='watch' %}">草稿箱</a></p>
+        </div>
+    </span>
+<span class="input-group-btn">
+<!-- 对话框触发按钮 -->
+<button type="button" class="btn btn-lg btn-primary"  id="isSuccessPost" data-toggle="modal" data-target="#writePost">发布</button>
+</span>
+      </div>
+    {{ forms.media }}
+{{ forms.content }}
+
+    <!----------------------------- 对话框HTML--------------------------------------- -->
+<div class="modal fade"  id="writePost">
+  <div class="modal-dialog">
+         <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only">关闭</span></button>
+        <p class="modal-title" style="font-size: 18px!important;color: #ccc!important;">选择文章分类</p>
+      </div>
+      <div class="modal-body">
+          <div class="form-group">
+                  <div class="col-mol-9">
+<select name="sortnode" id="id_node" style="font-size: 17px" class="select form-control" required="">
+  <option  style="display: none"></option>
+</select>
+              </div>
+          </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+        <button type="submit"   class="btn btn-primary  btn-lg"   id="ensurePost">确认并发布</button>
+      </div>
+    </div>
+  </div>
+</div>
+<!---------------------------------------------------------------------------->
+    <!--------------------------整个文件表单结束---------------------------------------->
+</form>
+<!-------------------------------js代码-------------------->
+<script src="{% static  'js/jquery-1.11.0.min.js' %}"></script>
+<script  src="{% static  'js/zui.min.js' %}"></script>
+{% block  bottomJs %}
+    <script  src="{% static  'js/main.js' %}"></script>
+{% endblock %}
+</body>
+</html>

@@ -1,0 +1,33 @@
+{% extends  'myAPPBase.html' %}
+{% load  staticfiles %}
+{% load  threadedcomments_tags %}
+{% load  newhubu %}
+{% block  CssOrJs %}
+    <link type="text/css" rel="stylesheet" href="{% static  'codeHighlight/css/shCoreDjango.css' %}"/>
+{% endblock %}
+{% block  head_title %}
+发表成功|HUBU生信社区
+{% endblock %}
+
+{% block  mainContent %}
+ <div class="container" >
+    <div class="row">
+    <div class="col-xs-2">
+    </div>
+        <div class="col-xs-8">
+            <a  href="#"><h1 class="text-center postSuccessTitle" style="margin-top: 80px;" ><span>标题：</span>《{{ postInstance.title }}》</h1></a>
+            <a  href="#"><h1 class="text-center postSuccessTitle"><span>作者：</span>{{ postInstance.user.nick_name }}</h1></a>
+            <a  href="#"><h1 class="text-center postSuccessTitle"><span>时间：</span>{{ postInstance.update_time }}</h1></a>
+            <a  href="#"><h1 class="text-center postSuccessTitle">您从{{ postInstance.user.pub_time }}起，共创作了{{ postInstance.user.levels }}次，</h1></a>
+            <a  href="#"><h1 class="text-center postSuccessTitle">真诚的感谢您的使用！</h1></a>
+
+            <br>
+            <a href="{% url  'topic:postContent' postId=postInstance.id slug=postInstance.slug  %}"><h3 class="text-center postSuccessTitle" style="color: #42c02e!important;font-size: 16px!important;font-weight: 600!important;letter-spacing:2px!important;"><i class="icon icon-check"></i>发布成功，点击查看</h3></a>
+    </div>
+        <div class="col-xs-2">
+    </div>
+
+    </di>
+    </div>
+{% endblock %}
+

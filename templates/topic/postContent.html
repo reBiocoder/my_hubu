@@ -1,0 +1,232 @@
+{% extends  'myAPPBase.html' %}
+{% load  staticfiles %}
+{% load  threadedcomments_tags %}
+{% load  newhubu %}
+{% block  CssOrJs %}
+    <link type="text/css" rel="stylesheet" href="{% static  'codeHighlight/css/shCoreRDark.css' %}"/>
+{% endblock %}
+
+{% block description  %}
+{{ getPost.title }}
+
+{% endblock  %}
+{% block  head_title %}
+{{ getPost.title }}--文章|HUBU生信社区
+{% endblock %}
+
+{% block  mainContent %}
+<style>
+body{
+    background-color: #FFFFFF!important;
+}
+</style>
+<div  class="container">
+<div  class="col-md-1">
+</div>
+<div  class="col-md-10">
+<!--script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<ins class="adsbygoogle"
+     style="display:block; text-align:center;"
+     data-ad-layout="in-article"
+     data-ad-format="fluid"
+     data-ad-client="ca-pub-5072850497249913"
+     data-ad-slot="9120865562"></ins>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script-->
+    <div  class="article">
+  <header>
+      {% get_comment_count for  getPost  as  postNum %}
+    <h1 style="font-size: 24px!important;line-height: 1.22;">{{ getPost.title }}</h1>
+      <div class="media"  id="postAuthor">
+         <div class="pull-left">
+             <a  href="{% url 'users:lookProfile'  id=getPost.user.id %}"><img src="{{ getPost.user.avatar.url }}" class="media-object  img-circle" style="width:50px">
+         </div>
+         <div class="media-body" style="margin-left: 10px;">
+             <p><a style="color: #2f2f2f;;font-size: 16px;" href="{% url 'users:lookProfile'  id=getPost.user.id %}">{{ getPost.user.nick_name }}<span style="font-size: 15px;">（{{ getPost.user.oneWords }}）</span></a>
+                 {% ifequal  request.user.username getPost.user.username %}
+                 {% else %}
+                 <span class="spanFollow"><a class="follow btn btn-success btn-xs" style="color: #fff!important;">
+                     {% ifequal  friendStatus  '关注' %}
+                     <i style="font-size: 14px!important;" class="icon icon-plus-sign"></i>关注
+                      {% endifequal %}
+                     {% ifequal  friendStatus  '已关注' %}
+                     <i style="font-size: 14px!important;" class="icon icon-check"></i>已关注
+                      {% endifequal %}
+                     {% ifequal  friendStatus  '相互关注' %}
+                     <i style="font-size: 14px!important;" class="icon  icon-exchange">相互关注</i>
+                      {% endifequal %}
+                 </a></span>
+                 {% endifequal %}
+                 <br>
+                 <span id="left-inprofile"  style="font-size:14px;"><span><a style="" href="{% url 'topic:SortContent'  node_id=getPost.node.id  %}" >{{ getPost.node }}</a></span><span class="Footer-dot"></span><span  style="margin-left: 5px;">{{ getPost.update_time }}</span><span class="Footer-dot"></span>阅读{{ getPost.read_nums }}<span class="Footer-dot"></span><span>评论{{ postNum }}</span></span>
+             </p></div>
+</div>
+      <p style="color: #8590A6;margin-top: 20px;font-size: 15px;" id="top-agree">{{ getPost.agree }} 人赞了该文章</p>
+        <input  name="postAuthor" value="{{ request.user.username }}"  type="hidden">
+  <input  name="postId" value="{{ getPost.id }}"  type="hidden">
+      <input  name="requestUser" value="{{ getPost.user.username }}"  type="hidden">
+
+
+
+
+  </header>
+        <!-----个人信息结束------------------------------------------------->
+<div id="article">
+          <div id="arcticle-code">
+	          {% ifequal getPost.zhihu_id '1' %}
+              {{ getPost.content|safe }}
+          {% else %}
+              {% autoescape off %}
+{% getHtml getPost.content %}
+        {% endautoescape %}
+
+          {% endifequal %}
+<div> 
+<!-----------------------------文章内容结束---------------------------------->
+      </div>
+    <!---------------------点赞分享结束---------------------------->
+    <div class="row">
+    <div class="col-xs-3">
+        <div  id="agreeTwo">
+        {% ifequal status  1 %}
+                     <br>
+    <button type="button" class="btn  btn-lg  agreeTwoButton">
+        <i style="font-size: 18px;color: white;" class="icon icon-heart"></i>
+        <span class="agreeTwoFont">赞同</span>
+        <span style="margin-left: 10px;color: white;text-shadow: 0 0px 0 #fff;" >{{ getPost.agree }}</span>
+    </button>
+        {% else %}
+            <br>
+        <button type="button"  class="btn  btn-lg notAgreeTwoButton">
+            <i style="font-size: 18px;" class="icon icon-heart-empty"></i>
+            <span class="notAgreeTwoFont" >赞同</span>
+            <span style="margin-left: 10px;" >{{ getPost.agree }}</span>
+        </button>
+        {% endifequal %}
+    </div>
+    </div>
+        <div class="col-xs-3"></div>
+    <div class="col-xs-3">
+    </div>
+    </div>
+<!---------------------点赞分享结束----------------------------->
+    </div>
+
+<!-----------推荐区---------------------->
+<!--div class="list list-condensed">
+  <header><h3 style="padding-top: 20px;"><span>相关推荐</span></h3></header>
+  <div class="items items-hover">
+      {% for  eachAboutPost  in aboutPost %}
+          {% get_comment_count for eachAboutPost as num %}
+      <div class="item" style="font-size: 14px!important;">
+      <div class="item-heading">
+          <div style="font-size: 12px!important;" class="pull-right label label-success"><a style="color: #fff" href="{% url  'topic:SortContent' node_id=eachAboutPost.node.id %}">{{ eachAboutPost.node }}</a></div>
+        <h3><a style="color: #145ccd!important;" href="{% url  'topic:postContent' postId=eachAboutPost.id slug=eachAboutPost.slug %}" target="_blank">{{eachAboutPost.title}}</a></h3>
+      </div>
+      <div class="item-content">
+  <div class="text"><a style="color: grey;" href="{% url  'topic:postContent' postId=eachAboutPost.id slug=eachAboutPost.slug %}"></a>
+          <a style="color: #1A1A1A;font-size: 14px;" href="{% url  'topic:postContent' postId=eachAboutPost.id slug=eachAboutPost.slug %}">{%  CutContent  eachAboutPost.content %}</a>
+      </div>
+
+      </div>
+
+      <div class="item-footer">
+          <a href="{% url  'users:lookProfile' id=eachAboutPost.user.id %}" class="text-muted"><i style="font-size: 14px!important;" class="icon icon-user"></i>{{ eachAboutPost.user.nick_name }}</a>
+          <div class="pull-right">
+              <span><a href="{% url  'topic:postContent' postId=eachAboutPost.id slug=eachAboutPost.slug %}" class="text-muted"><i style="font-size: 14px!important;" class="icon icon-eye-open"></i> {{ eachAboutPost.read_nums }}</a> </span><span><a href="{% url  'topic:postContent' postId=eachAboutPost.id slug=eachAboutPost.slug %}#defaultComment" class="text-muted"><i style="font-size: 14px!important;" class="icon-chat"></i> {{ num }}</a> </span><span style="font-size: 14px!important;" class="text-muted">{{ eachAboutPost.update_time }}</span>
+
+          </div>
+          </div>
+    </div>
+  {% endfor %}
+  </div>
+</div-->
+
+<!-----------------------推荐区结束------------------------------->
+
+
+
+
+
+
+
+    <!------------------评论区---------------------------------->
+{#    <h1>{% get_comment_list for getPost as a  %}</h1>#}
+{#    <h1>{{ a }}</h1>#}
+<div id="defaultComment">
+    {% render_comment_form for getPost  %}
+</div>
+<div  id="getAllComment">
+{% render_comment_list for getPost %}
+</div>
+     <!------------------------评论区结束------------------------------------------->
+
+    <nav class="navbar navbar-default navbar-fixed-bottom" role="navigation">
+  <div class="container">
+          <div  class="col-md-2">
+    </div>
+          <div  class="col-md-8">
+              {% ifequal status  1 %}
+                  <span><button id="agree-button" class="agree" >
+                  <i class="icon icon-thumbs-up"></i>
+                      赞同{{ getPost.agree }}
+                      </button>
+              </span>
+                  {% else %}
+                  <span>
+                      <button id="agree-button" class="notAgree" >
+                  <i class="icon icon-thumbs-o-up"></i>
+                      赞同{{ getPost.agree }}
+                      </button>
+              </span>
+                  {% endifequal %}
+              <span  style="margin-left: 10px;"><button  id="setting-button" data-toggle="popover"><i class="icon icon-spin icon-cog"></i>设置</button></span>
+          </div>
+          <div  class="col-md-2">
+    </div>
+
+  </div>
+</nav>
+
+</div>
+    <div  class="col-md-1">
+    <!--div  style="position: fixed; right: 10px;top: 200px;">
+<img src="{% static 'img/weixin.jpg' %}"  width="80px;"height="80px">
+</div-->
+</div>
+    </div>
+{% endblock %}
+{% block  bottomJs %}
+{% endblock %}
+{% block  codehighlight %}
+    <script type="text/javascript" src="{% static  'js/codeHighLight.js' %}"></script>
+
+<script type="text/javascript" src="{% static  'codeHighlight/js/shCore.js' %}"></script>
+
+    <script type="text/javascript" src="{% static  'codeHighlight/js/shBrushAll.js' %}"></script>
+
+
+{% endblock %}
+{% block footer %}
+{% endblock %}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,86 @@
+{% extends  'myAPPBase.html' %}
+{% load  staticfiles %}
+
+{% block  head_title %}
+{{ lookUser.nick_name }}的个人主页|HUBU生信社区
+{% endblock %}
+{% block   CssOrJs %}
+<link href="{% static  'lib/tabs/zui.tabs.css' %}" rel="stylesheet">
+{% endblock %}
+{% block  mainContent %}
+    <div  class="container">
+    <div  class="col-xs-1">
+    </div>
+        <div  class="col-xs-12">
+<div  class="panel"  style="margin-bottom: 10px;">
+<div  class="panel-body">
+<div class="media">
+     <div class="pull-left">
+     <img   src="{{ lookUser.avatar.url }}">
+     </div>
+     <div class="media-body"  id="profile-info">
+         <h1><strong>{{ lookUser.nick_name }}</strong>
+             {% ifequal lookUser.gender  '男' %}
+             <span><i class="icon icon-mars"></i></span>
+             {% else %}
+             <span><i class="icon icon-venus"></i></span>
+             {% endifequal %}
+             <span>{{ lookUser.oneWords }}</span>
+             <span><a  href="javascript:void(0);" id="profileAttention"  class="btn  btn-sm btn-success" style="padding-top: 5px;padding-bottom: 5px;color: #fff!important;">
+                 {% ifequal  attentionStatus  '关注' %}
+                 <i style="font-size: 14px!important;color: #fff!important;" class="icon icon-plus-sign"></i>关注
+                 {% endifequal %}
+                 {% ifequal  attentionStatus  '已关注' %}
+                 <i style="font-size: 14px!important;color: #fff!important;" class="icon icon-check"></i>已关注
+                 {% endifequal %}
+                 {% ifequal  attentionStatus  '相互关注' %}
+                 <i style="font-size: 14px!important;color: #fff!important;" class="icon icon-exchange"></i>相互关注
+                 {% endifequal %}
+
+             </a></span>
+         </h1>
+         <ul class="list-unstyled" id="profileHeadList">
+             <li><span class="profileHeadItem">居住地</span><span class="profileHeadValue">{{ lookUser.location }}</span></li>
+             <li><span class="profileHeadItem">所在行业</span><span class="profileHeadValue">{{ lookUser.trade }}</span></li>
+             <li><span class="profileHeadItem">职业经历</span><span class="profileHeadValue">{{ lookUser.jobs }}</span></li>
+             <button class="profileHeadButton" type="button"><i class="icon icon-angle-down"></i>查看详细资料</button>
+             <div  id="profileHeadEnd">
+                 <li><span class="profileHeadItem">教育经历</span><span class="profileHeadValue">{{ lookUser.school }}</span></li>
+                 <li><span class="profileHeadItem">个人简介</span><span class="profileHeadValue">{{ lookUser.introduction }}</span></li>
+                 <button class="profileHeadButtonTop" type="button"><i class="icon icon-angle-up"></i>收起详细资料</button>
+             </div>
+         </ul>
+     </div>
+<input  name="requestUser" value="{{ request.user.username }}"  type="hidden">
+    <input  name="lookUser" value="{{ lookUser.username }}"  type="hidden">
+
+</div>
+</div><!-----panel-body-------------->
+</div><!---------panel--------------->
+            <!-------------------主要内容------------------------------------>
+        <div  class="col-xs-8"   style="background-color: #fff">
+
+                {% include  'topic/lookProfileNodeHtml.html' %}
+                <div class="container">
+    <p style="margin-top: 0px;color:#878B91;font-size: 14px;line-height: 2;">
+        HUBU生信专注于生物信息学技术发展的社区<br>
+        <a  style="color:#878B91;" target="_blank" href="http://bio.hubu.edu.cn/">湖北大学生物信息学</a><span  class="Footer-dot"></span>
+        <a  style="color:#878B91;" target="_blank" href="http://www.12377.cn/">网上有害信息举报专区</a><br>
+        联系方式：anshiwang@yeah.net<br>
+        Copyright ©<a  style="color:#878B91;" target="_blank" href="https://www.lovexu.xyz">我爱小徐子</a>    -基于<a  style="color:#878B91;" target="_blank" href="https://www.djangoproject.com/">django</a>开发
+        </p>
+  </div>
+                <!----------------------------------------------------->
+            </div>
+        </div>
+            <!-------------------------------------------------------------->
+    <div  class="col-xs-1">
+    </div>
+    </div>
+{% endblock %}
+{% block  bottomJs %}
+    <script src="{% static  'js/main.js' %}"></script>
+    <script src="{% static  'lib/tabs/zui.tabs.js' %}"></script>
+{% endblock %}
+{% block  footer %}
+{% endblock %}

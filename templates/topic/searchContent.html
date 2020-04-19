@@ -1,0 +1,95 @@
+{% extends  'myAPPBase.html' %}
+{% load  staticfiles %}
+{% load  newhubu %}
+{% load  threadedcomments_tags %}
+{% block  head_title %}
+搜索"{{ q }}"的结果|HUBU生信社区
+{% endblock %}
+{% block  right-container %}
+<div class="list list-condensed">
+  <header><h3  style="padding-top: 20px;"><span>搜素结果</span></h3></header>
+  <div class="items items-hover" >
+      {% for  eachPost  in allPost%}
+          {% get_comment_count for eachPost  as  num %}
+      <div class="item" style="font-size: 15px!important;">
+      <div class="item-heading">
+          <div style="font-size: 12px!important;" class="pull-right label label-success"><a style="color: #fff" href="{% url  'topic:SortContent' node_id=eachPost.node.id %}">{{ eachPost.node }}</a></div>
+        <h2><a style="color: #145ccd!important;" href="{% url  'topic:postContent' postId=eachPost.id slug=eachPost.slug %}" target='_blank'>{{ eachPost.title }}</a></h2>
+      </div>
+      <div class="item-content">
+          <a  style="color: grey;" href="{% url  'topic:postContent' postId=eachPost.id slug=eachPost.slug %}">
+         {% ifequal eachPost.pictureUrl  '无' %}
+             {% else %}
+              <div class="media pull-right card"  style="margin-left: 20px;"><img src="{{ eachPost.pictureUrl }}"  alt="{{ eachPost.title }}--HUBU生信社区www.biocoder.cn"></div>
+          {% endifequal %}
+              <div class="text"><a style="color: #1A1A1A;font-size: 14px;" href="{% url  'topic:postContent' postId=eachPost.id slug=eachPost.slug %}">{% CutContent  eachPost.content %}</a></div>
+          </a>
+      </div>
+
+      <div class="item-footer">
+          <a href="{% url  'users:lookProfile' id=eachPost.user.id %}" class="text-muted"><i style="font-size: 14px!important;" class="icon icon-user"></i>{{ eachPost.user.nick_name }}</a>
+          <div  class="pull-right">
+              <span><a  href="{% url  'topic:postContent' postId=eachPost.id slug=eachPost.slug %}" class="text-muted"><i style="font-size: 14px!important;" class="icon icon-eye-open"></i> {{ eachPost.read_nums }}</a> </span><span><a href="{% url  'topic:postContent' postId=eachPost.id slug=eachPost.slug %}#defaultComment" class="text-muted"><i style="font-size: 14px!important;" class="icon-chat"></i> {{ commentCount }}</a> </span><span style="font-size: 14px!important;" class="text-muted">{{ eachPost.update_time }}</span>
+
+          </div>
+          </div>
+    </div>
+      {% endfor %}
+  </div>
+</div>
+{% endblock %}
+dsv
+{% block  left-container %}
+
+        <!------------板块信息开始--------------------->
+<div class="panel">
+    <div class="panel-heading">
+        <strong style="font-size: 16px;">相关文章</strong>
+    </div>
+<div class="panel-body">
+    <div  style="font-size: 15px;line-height: 25px;">
+        <ul  class="list-unstyled"  id="aboutSearch">
+            {% for eachAboutPost  in  aboutPost %}
+            <li><a  href="{% url  'topic:postContent' postId=eachAboutPost.id slug=eachAboutPost.slug %}">{{ eachAboutPost.title }}</a><a style="color: grey;font-size: 14px;" class="pull-right" href="{% url  'users:lookProfile' id=eachAboutPost.user.id %}"><img style="margin-right: 5px;" alt="{{ eachAboutPost.user.nick_name }}的头像--HUBU生信社区" src="{{ eachAboutPost.user.avatar.url }}" width="20px" height="20px">{{ eachAboutPost.user.nick_name }}</a></li>
+            {% endfor %}
+        </ul>
+    </div>
+</div>
+</div>
+    <!--------推荐作者----------->
+    <div class="panel">
+        <div class="panel-heading">
+        <strong style="font-size: 16px;">推荐作者</strong>
+    </div>
+        <div class="panel-body">
+
+            <div class="items">
+      <!--排名第一-->
+  {% for  eachUser  in  allUserList %}
+    <div class="item">
+      <div class="item-content">
+          <div class="media pull-left"><a href="{% url  'users:lookProfile'  id=eachUser.id %}"><img src="{{ eachUser.avatar.url }}" alt="{{ eachUser.nick_name }}的头像" width="46" height="46"></a></div>
+          <div class="text" style="font-size: 14px;"><a style="color: grey!important;" href="{% url  'users:lookProfile'  id=eachUser.id %}">{{ forloop.counter }}.{{ eachUser.nick_name }}</a></div>
+          <p><a href="{% url  'users:lookProfile'  id=eachUser.id %}" target="_blank" style="    background: url(//assets.dxycdn.com/gitrepo/bbs/img/bbs/userrankflw.png?t=12) no-repeat;display: inline-block;width: 54px;height: 24px;"></a></p>
+      </div>
+    </div>
+                {% endfor %}
+
+      <!--一个结束-->
+
+  </div>
+</div>
+</div>
+                <!-------------个人信息--------------------->
+                <div class="container">
+    <p style="margin-top: 0px;color:#878B91;font-size: 14px;line-height: 2;">
+        HUBU生信专注于生物信息学技术发展的社区<br>
+        <a style="color:#878B91;" target="_blank" href="http://bio.hubu.edu.cn/">湖北大学生物信息学</a><span class="Footer-dot"></span>
+        <a style="color:#878B91;" target="_blank" href="http://www.12377.cn/">网上有害信息举报专区</a><br>
+        联系方式：anshiwang@yeah.net<br>
+        Copyright ©<a style="color:#878B91;" target="_blank" href="https://www.lovexu.xyz">我爱小徐子</a>    -基于<a style="color:#878B91;" target="_blank" href="https://www.djangoproject.com/">django</a>开发
+        </p>
+  </div>
+                <!----------------------------------------------------->
+
+{% endblock %}

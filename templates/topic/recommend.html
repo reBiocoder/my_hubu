@@ -1,0 +1,30 @@
+{% load threadedcomments_tags %}
+{% load newhubu %}
+{% for  eachPost  in  allPostList%}
+        {% get_comment_count for eachPost as  commentCount %}
+  <div class="items items-hover" id="leftContent" style="overflow: auto!important;line-height: 1.67;">
+      <div class="item" style="font-size: 15px!important;">
+      <div class="item-heading">
+        <div style="font-size: 12px!important;" class="pull-right label label-success">{{ eachPost.node }}</div>
+        <h2><a style="color: #145ccd!important;" href="{% url  'topic:postContent' postId=eachPost.id slug=eachPost.slug %}" target='_blank'>{{ eachPost.title }}</a></h2>
+      </div>
+      <div class="item-content">
+          <a  style="color: grey;" href="{% url  'topic:postContent' postId=eachPost.id slug=eachPost.slug %}">
+         {% ifequal eachPost.pictureUrl  '无' %}
+             {% else %}
+              <div class="media pull-right card"  style="margin-left: 20px;"><img src="{{ eachPost.pictureUrl }}"  alt="{{ eachPost.title }}--HUBU生信社区www.biocoder.cn"></div>
+          {% endifequal %}
+              <div class="text"><a style="color: #1A1A1A;font-size: 14px;" href="{% url  'topic:postContent' postId=eachPost.id slug=eachPost.slug %}">{% CutContent  eachPost.content %}</a></div>
+          </a>
+      </div>
+
+      <div class="item-footer">
+          <a href="{% url  'users:lookProfile' id=eachPost.user.id %}" class="text-muted"><i style="font-size: 14px!important;" class="icon icon-user"></i>{{ eachPost.user.nick_name }}</a>
+          <div  class="pull-right">
+              <span><a  href="{% url  'topic:postContent' postId=eachPost.id slug=eachPost.slug %}" class="text-muted"><i style="font-size: 14px!important;" class="icon icon-eye-open"></i> {{ eachPost.read_nums }}</a> </span><span><a href="{% url  'topic:postContent' postId=eachPost.id slug=eachPost.slug %}#defaultComment" class="text-muted"><i style="font-size: 14px!important;" class="icon-chat"></i> {{ commentCount }}</a> </span><span style="font-size: 14px!important;" class="text-muted">{{ eachPost.update_time }}</span>
+
+          </div>
+          </div>
+    </div>
+  </div>
+    {% endfor %}

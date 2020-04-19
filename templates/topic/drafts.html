@@ -1,0 +1,80 @@
+{% extends  'myAPPBase.html' %}
+{% load  staticfiles %}
+{% load  newhubu %}
+
+{% block  head_title %}
+草稿箱--HUBU生信社区
+{% endblock %}
+{% block  right-container %}
+    <div class="row">
+<div class="list">
+  <header>
+      <h3>我的草稿</h3>
+  </header>
+  <div id="draft-content" class="items items-hover" style="overflow: auto!important;line-height: 1.67;">
+      {% for eachDraft  in  allDrafts %}
+      <div class="item">
+      <div class="item-heading">
+          <h3><a  href="{% url  'topic:drafts' type='edit' %}?draft_id={{ eachDraft.id }}" target="_blank">{{ eachDraft.title }}</a></h3>
+      </div>
+          <div class="item-content">
+              {% CutContent  eachDraft.content %}
+          </div>
+      <div class="item-footer" value="{{ eachDraft.id }}">
+          <a  href="javascript:void (0);" class="text-muted draft-delete">删除</a>
+          <span class="Footer-dot"></span>
+          <a href="{% url  'topic:drafts' type='edit' %}?draft_id={{ eachDraft.id }}" class="text-muted  draft-edit">编辑</a>
+
+
+          <span class="Footer-dot"></span>
+         保存时间{{ eachDraft.update_time }}
+          <span class="Footer-dot"></span>
+           共 {{ eachDraft.content|length }} 字
+          <span class="Footer-dot"></span>
+          文章
+      </div>
+    </div>
+      {% endfor %}
+<!--------------------------------------------------------->
+
+
+
+
+
+  </div>
+</div>
+    </div>
+{% endblock %}
+
+{% block left-container %}
+  <div class="panel">
+<div class="panel-body">
+    <div class="row">
+      <a class="panel-item" href="{% url  'topic:writePost' type='create' %}">
+   <i class="icon icon-edit"></i>
+      <p>写文章</p>
+      </a>
+        <a class="panel-item" href="{% url  'topic:writePost' type='create' %}">
+   <i class="icon icon-question "></i>
+      <br>
+       <p>提问题</p>
+      </a>
+        <a class="panel-item" href="{% url  'topic:writePost' type='create' %}">
+   <i class="icon icon-gift"></i>
+      <br>
+      <p>写想法</p>
+      </a>
+      </div>
+</div>
+</div>
+
+    <div class="container">
+    <p style="margin-top: 0px;color:#878B91;font-size: 14px;line-height: 2;">
+        HUBU生信专注于生物信息学技术发展的社区<br>
+        <a style="color:#878B91;" target="_blank" href="http://bio.hubu.edu.cn/">湖北大学生物信息学</a><span class="Footer-dot"></span>
+        <a style="color:#878B91;" target="_blank" href="http://www.12377.cn/">网上有害信息举报专区</a><br>
+        联系方式：anshiwang@yeah.net<br>
+        Copyright ©<a style="color:#878B91;" target="_blank" href="https://www.lovexu.xyz">我爱小徐子</a>    -基于<a style="color:#878B91;" target="_blank" href="https://www.djangoproject.com/">django</a>开发
+        </p>
+  </div>
+{% endblock %}
