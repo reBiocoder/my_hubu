@@ -139,7 +139,7 @@ DATABASES = {
         'NAME': 'my_hubu',
         'HOST': '127.0.0.1',
         'USER': 'root',
-        'PASSWORD': 'ZPaixzh1314',
+        'PASSWORD': 'password',
         'PORT': '3306',
     }
 }
