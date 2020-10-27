@@ -5,7 +5,7 @@ captcha==0.2.4
 certifi==2018.11.29
 cffi==1.11.5
 chardet==3.0.4
-cryptography==2.3.1
+cryptography==3.2
 defusedxml==0.5.0
 Django==2.2.13
 django-allauth==0.38.0
